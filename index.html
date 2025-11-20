@@ -1083,26 +1083,34 @@
     let current = 0;
 
     function showSlide(index) {
+      // ป้องกัน Index เกินจำนวนสไลด์
       if (index < 0 || index >= slides.length) return;
+      
       slides[current].classList.remove('active');
       current = index;
       slides[current].classList.add('active');
     }
 
+    // 1. ตั้งค่าการคลิก (Click)
     document.addEventListener('click', (e) => {
-      const nextBtn = e.target.closest('[data-next]');
-      const prevBtn = e.target.closest('[data-prev]');
-      if (nextBtn) {
-        showSlide((current + 1) % slides.length);
-      } else if (prevBtn) {
+      // ถ้าคลิกปุ่ม "ย้อนกลับ" (Prev)
+      if (e.target.closest('[data-prev]')) {
         showSlide((current - 1 + slides.length) % slides.length);
+      } 
+      // ถ้าคลิกที่อื่น (พื้นที่ว่าง หรือ ปุ่ม Next) ให้ไปหน้าถัดไปเสมอ
+      else {
+        showSlide((current + 1) % slides.length);
       }
     });
 
+    // 2. ตั้งค่าคีย์บอร์ด (Keyboard)
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+      // กดขวา, ลง, Enter, หรือ Spacebar -> ไปหน้าถัดไป
+      if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === 'Enter' || e.key === ' ') {
         showSlide((current + 1) % slides.length);
-      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+      } 
+      // กดซ้าย, ขึ้น -> ย้อนกลับ
+      else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
         showSlide((current - 1 + slides.length) % slides.length);
       }
     });
