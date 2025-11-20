@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>Nuvestra – Final Pitch Deck</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg-start: #050814;
+      --bg-end: #050b1f;
+      --card: rgba(14, 20, 40, 0.92);
+      --card-soft: rgba(15, 26, 52, 0.9);
+      --accent: #1ec6c9;
+      --accent-soft: rgba(30, 198, 201, 0.2);
+      --accent-2: #5c6cff;
+      --accent-3: #f5b947;
+      --text: #f8fbff;
+      --muted: #a6b0c3;
+      --border-soft: rgba(80, 99, 140, 0.4);
+      --shadow-lg: 0 28px 60px rgba(0, 0, 0, 0.6);
+      --radius-lg: 20px;
+      --radius-md: 16px;
+      --radius-pill: 999px;
+      --transition-fast: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Prompt", sans-serif;
+      background: radial-gradient(circle at top left, #0d1227, #030516 55%, #02020b);
+      color: var(--text);
+      overflow: hidden;
+    }
+
+    .app {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      padding: 28px 44px 60px;
+      display: none;
+      opacity: 0;
+      transform: scale(0.98) translateX(20px);
+      transition: opacity var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .slide.active {
+      display: block;
+      opacity: 1;
+      transform: scale(1) translateX(0);
+    }
+
+    .slide-inner {
+      max-width: 1180px;
+      height: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* --- Navigation --- */
+    .nav-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: radial-gradient(circle at 30% 20%, #7bfff4, #1ec6c9 50%, #0f7680);
+      box-shadow: 0 0 20px rgba(30, 198, 201, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 800;
+      color: #041014;
+    }
+
+    .brand-text-main {
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    .brand-text-sub {
+      font-size: 11px;
+      color: var(--muted);
+      opacity: 0.9;
+    }
+
+    .nav-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .nav-chip {
+      padding: 5px 12px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(13, 18, 40, 0.6);
+      backdrop-filter: blur(4px);
+    }
+
+    /* --- Layout --- */
+    .content {
+      flex: 1;
+      display: flex;
+      gap: 32px;
+      align-items: center;
+      padding: 8px 0 12px;
+    }
+
+    .col-left { flex: 1.1; display: flex; flex-direction: column; gap: 16px; justify-content: center; }
+    .col-right { flex: 1; display: flex; flex-direction: column; gap: 16px; height: 100%; justify-content: center; }
+
+    /* --- Typography --- */
+    .title-xl {
+      font-size: 42px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+    }
+
+    .title-accent {
+      background: linear-gradient(120deg, #b0f3ff, #1ec6c9, #5c6cff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .subtitle {
+      margin-top: 8px;
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.5;
+      max-width: 90%;
+    }
+
+    /* --- Components --- */
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .pill {
+      border-radius: var(--radius-pill);
+      padding: 8px 16px;
+      font-size: 12px;
+      background: rgba(12, 23, 48, 0.8);
+      border: 1px solid rgba(93, 229, 255, 0.2);
+      color: #dbeafe;
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 10px rgba(30, 198, 201, 0.8);
+    }
+
+    .card {
+      background: linear-gradient(145deg, rgba(14, 22, 45, 0.9), rgba(8, 14, 30, 0.95));
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(80, 99, 140, 0.25);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+    }
+
+    .card-soft {
+      background: rgba(20, 30, 60, 0.4);
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(120, 146, 198, 0.2);
+      padding: 16px;
+      transition: transform 0.2s;
+    }
+    .card-soft:hover {
+      background: rgba(30, 198, 201, 0.05);
+      border-color: rgba(30, 198, 201, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .card-title { font-size: 20px; font-weight: 600; margin-bottom: 6px; color: #fff; }
+    .card-sub { font-size: 17px; color: var(--muted); line-height: 1.4; }
+
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    /* --- Visualizations (Replacing Image Boxes) --- */
+    .visual-container {
+      width: 100%;
+      height: 100%;
+      min-height: 300px;
+      background: radial-gradient(circle at center, rgba(30, 198, 201, 0.05), transparent 70%), rgba(10, 16, 35, 0.6);
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Mockup: Mobile App */
+    .mockup-phone {
+      width: 220px;
+      background: #0a0e17;
+      border: 6px solid #2d3748;
+      border-radius: 30px;
+      padding: 10px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .mockup-header { height: 20px; display: flex; justify-content: space-between; align-items: center; padding: 0 4px; }
+    .mockup-card-lg { 
+      height: 100px; 
+      background: linear-gradient(135deg, #1ec6c922, #5c6cff22); 
+      border: 1px solid rgba(255,255,255,0.1); 
+      border-radius: 12px; 
+      padding: 12px;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .mockup-row { height: 40px; background: rgba(255,255,255,0.05); border-radius: 8px; width: 100%; }
+    .mockup-text-line { height: 6px; background: rgba(255,255,255,0.1); border-radius: 4px; width: 60%; margin-bottom: 6px; }
+    
+    /* Charts */
+    .chart-container { width: 100%; height: 200px; position: relative; padding: 0 20px; display: flex; align-items: flex-end; gap: 10px; }
+    .chart-bar { flex: 1; background: var(--accent); opacity: 0.3; border-radius: 4px 4px 0 0; transition: height 1s; position: relative;}
+    .chart-bar.active { opacity: 0.8; background: linear-gradient(to top, var(--accent), #5c6cff); }
+    .chart-line-svg { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
+    .chart-path { fill: none; stroke-width: 3; stroke-linecap: round; opacity: 0; animation: drawLine 1.5s forwards; }
+    
+    @keyframes drawLine { to { opacity: 1; stroke-dasharray: 0; } }
+
+    /* Quest UI */
+    .quest-item {
+      display: flex; align-items: center; gap: 12px;
+      background: rgba(255,255,255,0.03);
+      padding: 10px; border-radius: 12px; width: 90%;
+      border-left: 3px solid var(--muted);
+    }
+    .quest-item.active { background: rgba(30, 198, 201, 0.1); border-left: 3px solid var(--accent); }
+    .quest-icon { width: 32px; height: 32px; background: rgba(255,255,255,0.1); border-radius: 50%; display: grid; place-items: center; font-size: 14px; }
+
+    /* --- Footer Nav --- */
+    .footer-nav {
+      position: absolute;
+      right: 44px;
+      bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 12px;
+      color: var(--muted);
+      z-index: 20;
+    }
+
+    .btn-nav {
+      padding: 8px 16px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(172, 190, 238, 0.3);
+      background: rgba(7, 12, 32, 0.8);
+      color: var(--text);
+      font-size: 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-nav:hover { background: var(--accent); border-color: var(--accent); color: #000; font-weight: 600; }
+
+    /* Background Orbs */
+    .bg-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      z-index: 0;
+      opacity: 0.4;
+    }
+    .orb-1 { width: 500px; height: 500px; background: #1ec6c9; top: -100px; right: -100px; }
+    .orb-2 { width: 400px; height: 400px; background: #5c6cff; bottom: -50px; left: -50px; }
+
+    /* --- Specific Elements --- */
+    .big-number { font-size: 36px; font-weight: 700; color: var(--text); }
+    .stat-label { font-size: 12px; text-transform: uppercase; color: var(--muted); letter-spacing: 1px; }
+
+    @media (max-width: 900px) {
+      .slide { padding: 20px; overflow-y: auto; }
+      .content { flex-direction: column; align-items: stretch; }
+      .col-left, .col-right { flex: none; width: 100%; }
+      .title-xl { font-size: 32px; }
+      .grid-3, .grid-2 { grid-template-columns: 1fr; }
+      .visual-container { min-height: 200px; margin-top: 20px; }
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+
+  <section class="slide active" data-index="0">
+    <div class="slide-inner">
+      <div class="nav-bar">
+        <div class="brand">
+          <div class="brand-logo">N</div>
+          <div>
+            <div class="brand-text-main">Nuvestra</div>
+            <div class="brand-text-sub">Student Investment Platform</div>
+          </div>
+        </div>
+        <div class="nav-meta">
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="col-left">
+          <div style="margin-bottom: 20px;">
+            <div style="font-size: 14px; color: var(--accent); font-weight: 700; letter-spacing: 2px; margin-bottom: 10px;">THE VISION</div>
+            <h1 class="title-xl">
+              FROM TUITION<br/>
+              <span class="title-accent">TO PORTFOLIO</span>
+            </h1>
+            <p class="subtitle">
+              เปลี่ยน "ค่าเทอม" ที่จ่ายทิ้ง ให้กลายเป็น "พอร์ตการลงทุนแรก" ในชีวิต<br>
+              สร้างรากฐานทางการเงินให้นักศึกษา ตั้งแต่ปี 1 ถึง ปี 4
+            </p>
+            <div class="pill-row">
+              <div class="pill"><span class="pill-dot"></span> Low Risk Entry</div>
+              <div class="pill"><span class="pill-dot"></span> Learn by Doing</div>
+              <div class="pill"><span class="pill-dot"></span> Sustainable Growth</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-right">
+          <div class="visual-container">
+            <div class="mockup-phone" style="width: 280px; height: auto; padding: 20px; border-radius: 24px; border: 1px solid rgba(255,255,255,0.1); background: rgba(15,20,35,0.9);">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 15px;">
+                <div style="font-size:12px; color:#aaa;">Total Balance</div>
+                <div style="font-size:10px; background:#1ec6c9; color:#000; padding:2px 6px; border-radius:4px;">+7.8%</div>
+              </div>
+              <div class="big-number" style="margin-bottom: 5px;">฿ 52,340</div>
+              <div style="height: 60px; width: 100%; position: relative; margin-bottom: 15px;">
+                 <svg viewBox="0 0 100 40" preserveAspectRatio="none" width="100%" height="100%">
+                   <path d="M0,35 Q20,30 40,20 T100,5" fill="none" stroke="#1ec6c9" stroke-width="3" />
+                   <path d="M0,35 Q20,30 40,20 T100,5 V40 H0 Z" fill="linear-gradient(to top, #1ec6c9, transparent)" opacity="0.2" />
+                 </svg>
+              </div>
+              <div style="font-size:12px; color:var(--muted); line-height:1.4;">
+                "ถ้าจบปี 4 แล้วมีเงินก้อนนี้...<br>ชีวิตเริ่มต้นทำงานจะง่ายขึ้นไหม?"
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-nav">
+        <span>01 / 10</span>
+        <button class="btn-nav" data-next>Start &rarr;</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-index="1">
+    <div class="slide-inner">
+      <div class="nav-bar">
+        <div class="brand">
+          <div class="brand-logo">N</div>
+          <div>
+            <div class="brand-text-main">Problem</div>
+            <div class="brand-text-sub">The Barrier</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="col-left">
+          <h1 class="title-xl"><br/>ไม่รู้จะเริ่มตรงไหน</h1>
+          <div class="grid-3" style="margin-top: 24px;">
+            <div class="card-soft">
+              <div style="font-size: 24px; margin-bottom: 8px;">🤯</div>
+              <div class="card-title">ขาดความรู้</div>
+              <div class="card-sub">ไม่เข้าใจคำศัพท์การเงิน</div>
+            </div>
+            <div class="card-soft">
+              <div style="font-size: 24px; margin-bottom: 8px;">⏰</div>
+              <div class="card-title">ไม่มีเวลา</div>
+              <div class="card-sub">เรียนหนัก กิจกรรมเยอะ</div>
+            </div>
+            <div class="card-soft">
+              <div style="font-size: 24px; margin-bottom: 8px;">💸</div>
+              <div class="card-title">เงินทุนน้อย</div>
+              <div class="card-sub">รู้สึกว่าเริ่มด้วยเงินหลักร้อยไม่เห็นผลลัพธ์</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-right">
+          <div class="visual-container">
+            <div style="text-align: center; position: relative;">
+              <div style="width: 80px; height: 80px; background: #2d3748; border-radius: 50%; margin: 0 auto 16px; display: grid; place-items: center; font-size: 32px; border: 2px solid var(--accent);">🧑‍🎓</div>
+              <h3 style="margin: 0;">XXX</h3>
+              <p style="font-size: 14px; color: var(--muted); margin-top: 8px;">
+                "ดู TikTok การเงินทุกวัน<br>แต่ยังไม่กล้าเปิดบัญชีจริงสักที"
+              </p>
+              <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 8px; align-items: center;">
+                 <div style="background: rgba(255,50,50,0.1); color: #ff6b6b; padding: 6px 12px; border-radius: 20px; font-size: 12px;">❌ จ่ายค่าเทอมไปแล้วก็จบ</div>
+                 <div style="background: rgba(255,50,50,0.1); color: #ff6b6b; padding: 6px 12px; border-radius: 20px; font-size: 12px;">❌ เงินเก็บนิ่งอยู่ในออมทรัพย์</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-nav">
+        <button class="btn-nav" data-prev>&larr;</button>
+        <span>02 / 10</span>
+        <button class="btn-nav" data-next>&rarr;</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-index="2">
+    <div class="slide-inner">
+      <div class="nav-bar">
+        <div class="brand">
+          <div class="brand-logo">N</div>
+          <div>
+            <div class="brand-text-main">Insight</div>
+            <div class="brand-text-sub">The Hidden Asset</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="col-left">
+          <h1 class="title-xl">ค่าเทอม = เงินก้อนที่จ่ายแน่<br/><span class="title-accent">แต่ไม่เคยกลายเป็นพอร์ต</span></h1>
+          <p class="subtitle">
+             ในแต่ละปี เงินมหาศาลหมุนเวียนผ่านมหาวิทยาลัย<br>
+          </p>
+          <div style="margin-top: 24px; padding: 20px; background: rgba(30, 198, 201, 0.1); border-left: 4px solid var(--accent); border-radius: 8px;">
+            <div style="font-weight: bold; color: var(--accent); margin-bottom: 4px;">The Nuvestra Logic:</div>
+            <div style="font-size: 14px; color: #fff;">
+              "เปลี่ยนรายจ่ายบางส่วน &rarr; ให้เป็นสินทรัพย์"
+            </div>
+          </div>
+        </div>
+
+        <div class="col-right">
+          <div class="grid-2" style="height: 100%;">
+             <div class="card" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+               <div style="font-size: 40px; margin-bottom: 10px;">🏫</div>
+               <div style="font-weight: 600;">University</div>
+               <div style="font-size: 12px; color: var(--muted);">รับเงินก้อนมหาศาล</div>
+             </div>
+             <div class="card" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+               <div style="font-size: 40px; margin-bottom: 10px;">👨‍👩‍👧</div>
+               <div style="font-weight: 600;">Family</div>
+               <div style="font-size: 12px; color: var(--muted);">จ่ายทุกเทอมอยู่แล้ว</div>
+             </div>
+             <div class="card" style="grid-column: span 2; background: linear-gradient(90deg, rgba(30,198,201,0.1), transparent); border: 1px dashed var(--accent);">
+               <div style="display: flex; align-items: center; gap: 15px;">
+                 <div class="brand-logo">N</div>
+                 <div>
+                   <div style="font-weight: 700; color: var(--accent);">Nuvestra Mechanism</div>
+                   <div style="font-size: 12px; color: var(--muted);">ดึง Cashflow ส่วนนี้มาสร้างพอร์ตความเสี่ยงต่ำให้นักศึกษา</div>
+                 </div>
+               </div>
+             </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-nav">
+        <button class="btn-nav" data-prev>&larr;</button>
+        <span>03 / 10</span>
+        <button class="btn-nav" data-next>&rarr;</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-index="3">
+    <div class="slide-inner">
+      <div class="nav-bar">
+        <div class="brand">
+          <div class="brand-logo">N</div>
+          <div>
+            <div class="brand-text-main">Solution</div>
+            <div class="brand-text-sub">The Ecosystem</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="col-left">
+          <h1 class="title-xl">
+            Nuvestra Ecosystem<br/>
+            <span class="title-accent">3 Pillars of Success</span>
+          </h1>
+          <p class="subtitle">ไม่ใช่แค่แอปเทรด แต่คือ Journey ทางการเงินตลอด 4 ปีในรั้วมหาวิทยาลัย</p>
+          
+          <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 12px;">
+            <div class="card-soft" style="display: flex; align-items: center; gap: 15px;">
+              <div style="width: 40px; height: 40px; border-radius: 8px; background: #1ec6c9; display: grid; place-items: center; font-weight: bold; color: #000;">S</div>
+              <div>
+                <div class="card-title" style="margin:0;">Safe (Start)</div>
+                <div class="card-sub">เริ่มลงทุนอัตโนมัติจากค่าเทอม (Low Risk)</div>
+              </div>
+            </div>
+            <div class="card-soft" style="display: flex; align-items: center; gap: 15px;">
+              <div style="width: 40px; height: 40px; border-radius: 8px; background: #5c6cff; display: grid; place-items: center; font-weight: bold; color: #fff;">G</div>
+              <div>
+                <div class="card-title" style="margin:0;">Growth (Learn)</div>
+                <div class="card-sub">ขยับขยายสู่พอร์ตความเสี่ยงตามความสมัครใจ</div>
+              </div>
+            </div>
+            <div class="card-soft" style="display: flex; align-items: center; gap: 15px;">
+              <div style="width: 40px; height: 40px; border-radius: 8px; background: #f5b947; display: grid; place-items: center; font-weight: bold; color: #000;">Q</div>
+              <div>
+                <div class="card-title" style="margin:0;">Quest (Engage)</div>
+                <div class="card-sub">Gamification, Community และ Rewards</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-right">
+          <div class="visual-container">
+            <div style="position: relative; width: 260px; height: 260px;">
+              <div style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 140px; height: 140px; border-radius: 50%; background: rgba(30, 198, 201, 0.2); border: 2px solid #1ec6c9; display: grid; place-items: center; color: #fff; font-weight: 700; backdrop-filter: blur(5px);">SAFE</div>
+              <div style="position: absolute; bottom: 0; left: 0; width: 140px; height: 140px; border-radius: 50%; background: rgba(92, 108, 255, 0.2); border: 2px solid #5c6cff; display: grid; place-items: center; color: #fff; font-weight: 700; backdrop-filter: blur(5px);">GROWTH</div>
+              <div style="position: absolute; bottom: 0; right: 0; width: 140px; height: 140px; border-radius: 50%; background: rgba(245, 185, 71, 0.2); border: 2px solid #f5b947; display: grid; place-items: center; color: #fff; font-weight: 700; backdrop-filter: blur(5px);">QUEST</div>
+              <div style="position: absolute; top: 55%; left: 50%; transform: translate(-50%, -50%); width: 60px; height: 60px; background: #fff; border-radius: 50%; display: grid; place-items: center; font-weight: 900; color: #050814; z-index: 10; box-shadow: 0 0 20px rgba(255,255,255,0.5);">N</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-nav">
+        <button class="btn-nav" data-prev>&larr;</button>
+        <span>04 / 10</span>
+        <button class="btn-nav" data-next>&rarr;</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-index="4">
+    <div class="slide-inner">
+      <div class="nav-bar">
+        <div class="brand">
+          <div class="brand-logo">N</div>
+          <div>
+            <div class="brand-text-main">Nuvestra Safe</div>
+            <div class="brand-text-sub">Feature Deep Dive</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="col-left">
+          <h1 class="title-xl">Safe Mode<br/><span style="font-size: 24px; color: var(--muted); font-weight: 400;">Tuition-backed Portfolio</span></h1>
+          <div style="margin-top: 20px;">
+            <div class="grid-2">
+              <div class="card-soft">
+                <div class="card-title">🔒 Risk-Free Start</div>
+                <div class="card-sub">เงินต้นมาจากค่าเทอม</div>
+              </div>
+              <div class="card-soft">
+                <div class="card-title">🏛 Stable Assets</div>
+                <div class="card-sub">ลงทุนเฉพาะพันธบัตร และ Money Market</div>
+              </div>
+              <div class="card-soft">
+                <div class="card-title">📅 Long Term</div>
+                <div class="card-sub">ล็อคระยะเวลาตามปีการศึกษา ถอนได้เมื่อจบหรือจำเป็น</div>
+              </div>
+              <div class="card-soft">
+                <div class="card-title">📱 Real Ownership</div>
+                <div class="card-sub">นักศึกษาเป็นเจ้าของชื่อบัญชี เห็นยอดเติบโตจริง</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-right">
+          <div class="visual-container">
+            <div class="mockup-phone" style="width: 240px;">
+              <div class="mockup-header">
+                <div style="width: 40px; height: 6px; background: #555; border-radius: 4px;"></div>
+              </div>
+              <div class="mockup-card-lg" style="height: 120px; background: linear-gradient(135deg, #1ec6c9, #0f7680); border: none;">
+                <div style="color: rgba(0,0,0,0.6); font-size: 10px; font-weight: 700;">SAFE PORTFOLIO</div>
+                <div style="font-size: 28px; font-weight: 800; color: #fff;">฿ 12,500</div>
+                <div style="display: flex; gap: 6px;">
+                  <div style="font-size: 9px; background: rgba(255,255,255,0.3); color: #fff; padding: 3px 6px; border-radius: 4px;">Gov Bond 80%</div>
+                  <div style="font-size: 9px; background: rgba(255,255,255,0.3); color: #fff; padding: 3px 6px; border-radius: 4px;">MMF 20%</div>
+                </div>
+              </div>
+              <div style="margin-top: 10px;">
+                <div style="font-size: 10px; color: #aaa; margin-bottom: 6px;">HISTORY</div>
+                <div style="display: flex; justify-content: space-between; font-size: 10px; margin-bottom: 8px; padding: 8px; background: rgba(255,255,255,0.05); border-radius: 6px;">
+                  <span>Tuition Allocation (Y1/1)</span>
+                  <span style="color: #1ec6c9;">+2,500</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 10px; margin-bottom: 8px; padding: 8px; background: rgba(255,255,255,0.05); border-radius: 6px;">
+                  <span>Tuition Allocation (Y1/2)</span>
+                  <span style="color: #1ec6c9;">+2,500</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 10px; margin-bottom: 8px; padding: 8px; background: rgba(255,255,255,0.05); border-radius: 6px;">
+                  <span>Dividend Payout</span>
+                  <span style="color: #1ec6c9;">+125</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-nav">
+        <button class="btn-nav" data-prev>&larr;</button>
+        <span>05 / 10</span>
+        <button class="btn-nav" data-next>&rarr;</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-index="5">
+    <div class="slide-inner">
+      <div class="nav-bar">
+        <div class="brand">
+          <div class="brand-logo">N</div>
+          <div>
+            <div class="brand-text-main">Nuvestra Growth</div>
+            <div class="brand-text-sub">Risk & Return</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="col-left">
+          <h1 class="title-xl">Growth Plans</h1>
+          <p class="subtitle">เมื่อนักศึกษาพร้อม... ก็เลือกเส้นทางเติบโตของตัวเองได้</p>
+          
+          <div style="margin-top: 24px; display: flex; flex-direction: column; gap: 14px;">
+            <div class="card-soft" style="border-left: 4px solid #1ec6c9;">
+              <div style="display: flex; justify-content: space-between;">
+                <div class="card-title">🌱 Chill Plan</div>
+                <div style="font-size: 12px; color: #1ec6c9;">Risk: Low-Mid</div>
+              </div>
+              <div class="card-sub">กองทุนรวมตลาดกว้าง + ตราสารหนี้ เหมาะสำหรับคนเน้นชัวร์</div>
+            </div>
+            <div class="card-soft" style="border-left: 4px solid #5c6cff;">
+              <div style="display: flex; justify-content: space-between;">
+                <div class="card-title">🌤 Balance Plan</div>
+                <div style="font-size: 12px; color: #5c6cff;">Risk: Mid</div>
+              </div>
+              <div class="card-sub">หุ้น Global + Thematic Funds สมดุลระหว่างความเสี่ยงและผลตอบแทน</div>
+            </div>
+            <div class="card-soft" style="border-left: 4px solid #f5b947;">
+              <div style="display: flex; justify-content: space-between;">
+                <div class="card-title">🔥 Bold Plan</div>
+                <div style="font-size: 12px; color: #f5b947;">Risk: High</div>
+              </div>
+              <div class="card-sub">Innovation / Tech / Crypto Exposure เพื่อการเรียนรู้</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-right">
+          <div class="visual-container">
+             <div style="width: 100%; padding: 20px;">
+               <div style="margin-bottom: 10px; font-size: 12px; color: var(--muted);">PROJECTED GROWTH (4 YEARS)</div>
+               <div class="chart-container" style="border-left: 1px solid #333; border-bottom: 1px solid #333;">
+                 <svg class="chart-line-svg" viewBox="0 0 200 100" preserveAspectRatio="none">
+                   <path d="M0,90 C50,85 300,80 200,60" fill="none" stroke="#1ec6c9" stroke-width="2" stroke-dasharray="4" />
+                   <path d="M0,90 C50,80 400,60 200,30" fill="none" stroke="#5c6cff" stroke-width="2" />
+                   <path d="M0,90 C30,95 60,50 120,70 150,20 200,5" fill="none" stroke="#f5b947" stroke-width="2" />
+                 </svg>
+               </div>
+               <div style="display: flex; gap: 15px; justify-content: center; margin-top: 10px;">
+                  <div style="font-size: 10px; color: #1ec6c9;">● Chill</div>
+                  <div style="font-size: 10px; color: #5c6cff;">● Balance</div>
+                  <div style="font-size: 10px; color: #f5b947;">● Bold</div>
+               </div>
+             </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-nav">
+        <button class="btn-nav" data-prev>&larr;</button>
+        <span>06 / 10</span>
+        <button class="btn-nav" data-next>&rarr;</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-index="6">
+    <div class="slide-inner">
+      <div class="nav-bar">
+        <div class="brand">
+          <div class="brand-logo">N</div>
+          <div>
+            <div class="brand-text-main">Nuvestra Quest</div>
+            <div class="brand-text-sub">Learn & Earn</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="col-left">
+          <h1 class="title-xl">Gamification & Rewards</h1>
+          <p class="subtitle">เปลี่ยนเรื่องน่าเบื่อ ให้เป็นภารกิจสนุกๆ พร้อมของรางวัลที่จับต้องได้</p>
+          
+          <div class="grid-2" style="margin-top: 20px;">
+             <div class="card">
+               <div class="card-title">🎯 Mission</div>
+               <div class="card-sub">
+                 • ตั้งเป้าออมให้ครบ 3 เดือนแรก 3,000 บาท<br>
+                 • ดอกเบี้ย 10% ใน 1 เดือนแรก<br>
+                 • เช็คพอร์ตประจำสัปดาห์
+               </div>
+             </div>
+             <div class="card">
+               <div class="card-title">🎁 Real Rewards</div>
+               <div class="card-sub">
+                 สะสม Coin แลก:<br>
+                 • ส่วนลดค่าอาหารในมหาลัย<br>
+                 • ชั่วโมง Co-working space<br>
+                 • คูปองส่วนลดร้านอื่นๆ
+               </div>
+             </div>
+          </div>
+        </div>
+
+        <div class="col-right">
+          <div class="visual-container" style="justify-content: center; padding: 24px;">
+            
+            <div style="width: 100%; max-width: 380px;">
+              <div style="margin-bottom: 16px; display:flex; align-items:center; justify-content:space-between;">
+                 <div class="card-title" style="margin:0; font-size: 16px;">👑 Mentor Ranks</div>
+                 <div style="font-size:10px; color:var(--accent); border:1px solid var(--accent); padding:2px 8px; border-radius:10px; background: rgba(30, 198, 201, 0.1);">Community</div>
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: 12px;">
+                
+                <div style="display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.05); padding: 10px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
+                  <div style="width: 36px; height: 36px; min-width: 36px; background: linear-gradient(135deg, #d99a6c, #8c5e3c); border-radius: 50%; display: grid; place-items: center; font-size: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.3);">🥉</div>
+                  <div>
+                    <div style="font-size: 12px; font-weight: 700; color: #d99a6c;">BRONZE</div>
+                    <div style="font-size: 11px; color: var(--muted);">เริ่มต้น – ทำภารกิจพื้นฐานครบชุดแรก</div>
+                  </div>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.05); padding: 10px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
+                  <div style="width: 36px; height: 36px; min-width: 36px; background: linear-gradient(135deg, #f0f0f0, #a3a3a3); border-radius: 50%; display: grid; place-items: center; font-size: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.3);">🥈</div>
+                  <div>
+                    <div style="font-size: 12px; font-weight: 700; color: #e0e0e0;">SILVER</div>
+                    <div style="font-size: 11px; color: var(--muted);">ทำภารกิจต่อเนื่อง + ผ่าน Quiz กลาง</div>
+                  </div>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.05); padding: 10px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
+                  <div style="width: 36px; height: 36px; min-width: 36px; background: linear-gradient(135deg, #ffd700, #b8860b); border-radius: 50%; display: grid; place-items: center; font-size: 16px; box-shadow: 0 2px 8px rgba(255, 215, 0, 0.1);">🥇</div>
+                  <div>
+                    <div style="font-size: 12px; font-weight: 700; color: #ffd700;">GOLD</div>
+                    <div style="font-size: 11px; color: var(--muted);">มีผลงานการวิเคราะห์ / Reflection</div>
+                  </div>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 12px; background: linear-gradient(90deg, rgba(30, 198, 201, 0.15), transparent); padding: 10px; border-radius: 12px; border: 1px solid rgba(30, 198, 201, 0.4);">
+                  <div style="width: 36px; height: 36px; min-width: 36px; background: linear-gradient(135deg, #1ec6c9, #0f7680); border-radius: 50%; display: grid; place-items: center; font-size: 16px; box-shadow: 0 0 12px rgba(30, 198, 201, 0.4);">💎</div>
+                  <div>
+                    <div style="display: flex; align-items: center; gap: 6px;">
+                      <div style="font-size: 12px; font-weight: 800; color: #1ec6c9;">MENTOR</div>
+                      <span style="font-size: 9px; background: #1ec6c9; color: #000; padding: 1px 5px; border-radius: 4px; font-weight: bold;">TOP TIER</span>
+                    </div>
+                    <div style="font-size: 11px; color: #dbeafe;">ผ่านเกณฑ์ผลตอบแทน + ความรู้ <br>→ เป็นที่ปรึกษาให้นักศึกษาคนอื่นได้</div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-nav">
+        <button class="btn-nav" data-prev>&larr;</button>
+        <span>07 / 10</span>
+        <button class="btn-nav" data-next>&rarr;</button>
+      </div>
+    </div>
+  </section>
+
+  </div>
+</div>
+        </div>
+
+        
+        </div>
+      </div>
+
+      <div class="footer-nav">
+        <button class="btn-nav" data-prev>&larr;</button>
+        <span>07 / 10</span>
+        <button class="btn-nav" data-next>&rarr;</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-index="7">
+    <div class="slide-inner">
+      <div class="nav-bar">
+        <div class="brand">
+          <div class="brand-logo">N</div>
+          <div>
+            <div class="brand-text-main">Business Model</div>
+            <div class="brand-text-sub">Win-Win-Win</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="col-left">
+          <h1 class="title-xl">Stakeholder Benefits</h1>
+          <div class="grid-3" style="margin-top: 20px;">
+            <div class="card-soft">
+               <div style="font-size: 20px; margin-bottom: 10px;">🧑‍🎓 Students</div>
+               <ul style="font-size: 12px; color: var(--muted); padding-left: 16px; line-height: 1.6;">
+                 <li>มีเงินเก็บก้อนแรก</li>
+                 <li>มีความรู้ติดตัว</li>
+                 <li>ความเสี่ยงต่ำมาก</li>
+               </ul>
+            </div>
+            <div class="card-soft">
+               <div style="font-size: 20px; margin-bottom: 10px;">🏫 University</div>
+               <ul style="font-size: 12px; color: var(--muted); padding-left: 16px; line-height: 1.6;">
+                 <li>ภาพลักษณ์ทันสมัย</li>
+                 <li>Welfare ให้นักศึกษา</li>
+               </ul>
+            </div>
+            <div class="card-soft" style="border: 1px solid var(--accent);">
+               <div style="font-size: 20px; margin-bottom: 10px; color: var(--accent);">💼 Nuvestra</div>
+               <ul style="font-size: 12px; color: var(--muted); padding-left: 16px; line-height: 1.6;">
+                 <li>Fee</li>
+                 <li>Partner Commission</li>
+                 <li>Data Insights</li>
+               </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-right">
+          <div class="visual-container">
+            <div style="position: relative; width: 200px; height: 200px;">
+               <svg viewBox="0 0 100 100" style="width: 100%; height: 100%; animation: spin 20s linear infinite;">
+                 <path d="M50,10 A40,40 0 0,1 90,50" fill="none" stroke="#1ec6c9" stroke-width="2" marker-end="url(#arrow)" />
+                 <path d="M90,50 A40,40 0 0,1 50,90" fill="none" stroke="#5c6cff" stroke-width="2" marker-end="url(#arrow)" />
+                 <path d="M50,90 A40,40 0 0,1 10,50" fill="none" stroke="#f5b947" stroke-width="2" marker-end="url(#arrow)" />
+                 <path d="M10,50 A40,40 0 0,1 50,10" fill="none" stroke="#fff" stroke-width="2" marker-end="url(#arrow)" />
+                 <defs>
+                    <marker id="arrow" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto" markerUnits="strokeWidth">
+                      <path d="M0,0 L0,6 L9,3 z" fill="#fff" />
+                    </marker>
+                 </defs>
+               </svg>
+               <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+                 <div style="font-weight: 700; font-size: 14px;">Sustainable<br>Loop</div>
+               </div>
+             </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-nav">
+        <button class="btn-nav" data-prev>&larr;</button>
+        <span>08 / 10</span>
+        <button class="btn-nav" data-next>&rarr;</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-index="8">
+    <div class="slide-inner">
+      <div class="nav-bar">
+        <div class="brand">
+          <div class="brand-logo">N</div>
+          <div>
+            <div class="brand-text-main">Roadmap</div>
+            <div class="brand-text-sub">Growth Plan</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        
+        <div class="col-left" style="display: flex; flex-direction: column; justify-content: center;">
+          <h1 class="title-xl" style="margin-bottom: 20px;">Future Impact</h1>
+          
+          <div style="display: flex; flex-direction: column; gap: 16px; position: relative;">
+            <div style="position: absolute; left: 24px; top: 20px; bottom: 20px; width: 2px; background: linear-gradient(to bottom, #1ec6c9, #5c6cff, #f5b947); opacity: 0.3; z-index: 0;"></div>
+
+            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); padding: 16px; border-radius: 16px; display: flex; align-items: center; gap: 16px; position: relative; z-index: 1; backdrop-filter: blur(5px);">
+              <div style="width: 16px; height: 16px; background: #1ec6c9; border-radius: 50%; box-shadow: 0 0 10px rgba(30, 198, 201, 0.5);"></div>
+              <div style="flex: 1;">
+                 <div style="font-size: 12px; color: #1ec6c9; font-weight: 700; letter-spacing: 1px;">PHASE 1: PILOT</div>
+                 <div style="font-size: 15px; color: #fff; margin-top: 2px;">1 University + Safe Mode Only</div>
+              </div>
+            </div>
+
+            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); padding: 16px; border-radius: 16px; display: flex; align-items: center; gap: 16px; position: relative; z-index: 1; backdrop-filter: blur(5px);">
+              <div style="width: 16px; height: 16px; background: #5c6cff; border-radius: 50%; box-shadow: 0 0 10px rgba(92, 108, 255, 0.5);"></div>
+              <div style="flex: 1;">
+                 <div style="font-size: 12px; color: #5c6cff; font-weight: 700; letter-spacing: 1px;">PHASE 2: SCALE</div>
+                 <div style="font-size: 15px; color: #fff; margin-top: 2px;">3-5 Unis + Growth Plans Launch</div>
+              </div>
+            </div>
+
+            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); padding: 16px; border-radius: 16px; display: flex; align-items: center; gap: 16px; position: relative; z-index: 1; backdrop-filter: blur(5px);">
+              <div style="width: 16px; height: 16px; background: #f5b947; border-radius: 50%; box-shadow: 0 0 10px rgba(245, 185, 71, 0.5);"></div>
+              <div style="flex: 1;">
+                 <div style="font-size: 12px; color: #f5b947; font-weight: 700; letter-spacing: 1px;">PHASE 3: ECOSYSTEM</div>
+                 <div style="font-size: 15px; color: #fff; margin-top: 2px;">National Level + เชื่อมกับทุนการศึกษา</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-right" style="display: flex; flex-direction: column; justify-content: center;">
+          
+          <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px;">
+             <h3 style="margin: 0; font-size: 20px; color: var(--text);">5-Year Goals</h3>
+             <div style="font-size: 12px; color: var(--muted);">Key Success Indicators</div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+             
+             <div style="grid-column: span 2; background: linear-gradient(135deg, rgba(30, 198, 201, 0.15), rgba(30, 198, 201, 0.05)); border: 1px solid rgba(30, 198, 201, 0.3); padding: 20px; border-radius: 16px; display: flex; align-items: center; gap: 20px;">
+                <div style="font-size: 42px; font-weight: 700; color: #1ec6c9; line-height: 1;">80%</div>
+                <div style="border-left: 1px solid rgba(255,255,255,0.1); padding-left: 20px;">
+                  <div style="font-size: 16px; font-weight: 600; color: #fff;">Financial Literacy</div>
+                  <div style="font-size: 12px; color: var(--muted); margin-top: 4px;">Of graduated students pass the test</div>
+                </div>
+             </div>
+
+             <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); padding: 16px; border-radius: 16px; display: flex; flex-direction: column; justify-content: center;">
+                <div style="font-size: 24px; margin-bottom: 8px;">💰</div>
+                <div style="font-size: 18px; font-weight: 700; color: #f5b947;">฿ 10,000</div>
+                <div style="font-size: 10px; color: var(--muted);">Avg. Portfolio Value</div>
+             </div>
+
+             <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); padding: 16px; border-radius: 16px; display: flex; flex-direction: column; justify-content: center;">
+                <div style="font-size: 24px; margin-bottom: 8px;">🧑‍🏫</div>
+                <div style="font-size: 18px; font-weight: 700; color: #5c6cff;">200+ Mentors</div>
+                <div style="font-size: 10px; color: var(--muted);">Per University Campus</div>
+             </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer-nav">
+        <button class="btn-nav" data-prev>&larr;</button>
+        <span>09 / 10</span>
+        <button class="btn-nav" data-next>&rarr;</button>
+      </div>
+    </div>
+  </section>s
+
+  <section class="slide" data-index="9">
+    <div class="slide-inner">
+      <div class="nav-bar">
+        <div class="brand">
+          <div class="brand-logo">N</div>
+        </div>
+        <div class="nav-meta">
+          <div class="nav-chip">Wrap Up</div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="col-left">
+          <h1 class="title-xl">
+            Safe • Growth • Quest<br/>
+            <span class="title-accent">With Nuvestra</span>
+          </h1>
+          
+          <div class="grid-3" style="margin-top: 30px;">
+            <div class="card-soft">
+              <div style="font-weight: 700; color: #1ec6c9; margin-bottom: 4px;">Safe</div>
+              <div style="font-size: 12px; color: var(--muted);">เปลี่ยนค่าเทอมเป็นพอร์ต Safe</div>
+            </div>
+            <div class="card-soft">
+              <div style="font-weight: 700; color: #5c6cff; margin-bottom: 4px;">Growth</div>
+              <div style="font-size: 12px; color: var(--muted);">เรียนรู้ผ่านพอร์ต Growth</div>
+            </div>
+            <div class="card-soft">
+              <div style="font-weight: 700; color: #f5b947; margin-bottom: 4px;">Quest</div>
+              <div style="font-size: 12px; color: var(--muted);">สนุกกับ Quest & Rewards</div>
+            </div>
+          </div>
+
+          <div style="margin-top: 30px; padding: 20px; border: 1px dashed rgba(145, 168, 219, 0.4); border-radius: 16px; background: rgba(6, 14, 32, 0.6);">
+            <div style="font-size: 12px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px;">OUR ASK TODAY</div>
+            <div style="font-size: 14px;">
+              🚀 <strong>Pilot Opportunity:</strong> มองหาพันธมิตรมหาวิทยาลัยแห่งแรก<br>
+              🤝 <strong>Honourable:</strong> บริษัทจะขาดความน่าเชื่อถือถ้าไม่ได้ A วิชานี้
+            </div>
+          </div>
+        </div>
+
+        <div class="col-right centered">
+          <div style="text-align: center;">
+            <div style="font-size: 48px; font-weight: 900; letter-spacing: 2px; margin-bottom: 10px;" class="title-accent">THANK YOU</div>
+            
+            <div class="card" style="display: inline-flex; flex-direction: column; align-items: center; padding: 30px 50px;">
+               <div class="brand-logo" style="width: 60px; height: 60px; font-size: 28px; margin-bottom: 15px;">N</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-nav">
+        <button class="btn-nav" data-prev>&larr;</button>
+        <span>10 / 10</span>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  (function () {
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    let current = 0;
+
+    function showSlide(index) {
+      if (index < 0 || index >= slides.length) return;
+      slides[current].classList.remove('active');
+      current = index;
+      slides[current].classList.add('active');
+    }
+
+    document.addEventListener('click', (e) => {
+      const nextBtn = e.target.closest('[data-next]');
+      const prevBtn = e.target.closest('[data-prev]');
+      if (nextBtn) {
+        showSlide((current + 1) % slides.length);
+      } else if (prevBtn) {
+        showSlide((current - 1 + slides.length) % slides.length);
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+        showSlide((current + 1) % slides.length);
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        showSlide((current - 1 + slides.length) % slides.length);
+      }
+    });
+  })();
+</script>
+</body>
+</html>
